@@ -36,7 +36,26 @@ namespace Treci_DUMP_Domaći
 
         public bool CheckIfAttended(Guid ID)
         {
-            return _attendance[ID];
+            try
+            {
+                return _attendance[ID];
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool CheckIfNotAttended(Guid ID)
+        {
+            try
+            {
+                return _attendance[ID];
+            }
+            catch
+            {
+                return true;
+            }
         }
     }
 }

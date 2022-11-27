@@ -197,8 +197,7 @@ namespace Treci_DUMP_Domaći
 
                                 } while (!EventExists);
                                 Guid IDEvent = Guid.Parse(ID);
-
-
+                                List<Eventi> EventsToDelete = new List<Eventi>();
                                 if (ChangeConformation()){
                                     foreach (Eventi e in Events)
                                     {
@@ -207,12 +206,24 @@ namespace Treci_DUMP_Domaći
                                             List<string> EmailsFromThisEvent = e.ListOfEmailsFromAnEvent();
                                             foreach (Osobe o in People)
                                             {
-                                                if (EmailsFromThisEvent.Contains(o.Email)) {
+                                                if (EmailsFromThisEvent.Contains(o.Email))
+                                                {
                                                     o.AttendanceRemove(e.Id);
                                                 }
                                             }
-                                            Events.Remove(e);
                                         }
+                                    }
+                                    foreach (Eventi e in Events)
+                                    {
+                                        if (e.Id == IDEvent)
+                                        {
+                                            EventsToDelete.Add(e);
+                                        }
+                                    }
+
+                                    foreach(Eventi e in EventsToDelete)
+                                    {
+                                        Events.Remove(e);
                                     }
                                 }
                                 else
@@ -521,7 +532,7 @@ namespace Treci_DUMP_Domaći
             StringBuilder sb = new StringBuilder();
             foreach (Osobe o in People)
             {
-                if (!o.CheckIfAttended(Event.Id))
+                if (!o.CheckIfNotAttended(Event.Id))
                 {
                     sb.Append(o.Email + " ");
                 }

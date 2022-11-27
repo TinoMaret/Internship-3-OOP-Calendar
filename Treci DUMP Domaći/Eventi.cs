@@ -63,15 +63,20 @@ namespace Treci_DUMP_Domaći
         public void RemoveParticipants(string a)
         {
             List<string> EmailsFromAnEvent = ListOfEmailsFromAnEvent();
-            String[] strlist = a.Split(' ');
-            foreach(string s in strlist)
+            if (a.Contains(" "))
             {
-                EmailsFromAnEvent.Remove(s);
+                String[] strlist = a.Split(' ');
+                foreach (string s in strlist)
+                {
+                    EmailsFromAnEvent.Remove(s);
+                }
             }
+            else
+                EmailsFromAnEvent.Remove(a);
             StringBuilder myStringBuilder = new StringBuilder();
             foreach(string e in EmailsFromAnEvent)
             {
-                myStringBuilder.Append(e + "");
+                myStringBuilder.Append(e + " ");
             }
 
             ParticipantEmails = myStringBuilder.ToString();
